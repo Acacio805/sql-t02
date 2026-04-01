@@ -87,6 +87,38 @@ VALUES(
     '01001000'
 );
  
+-- Listando todos os dados de uma tabela
+SELECT *
+FROM farmacia;
+
+-- Listando os dados de duas colunas
+SELECT nomefarmacia, cidade
+FROM farmacia;
+
+-- Listando com filtro
+SELECT *
+FROM farmacia
+WHERE cidade = 'São Paulo';
+
+-- Listar com comparação
+SELECT *
+FROM produto
+WHERE quantproduto > 20;
+
+SELECT *
+FROM farmacia
+WHERE cidade = 'São Paulo'
+AND bairro = 'jardins';
+
+SELECT *
+FROM farmacia
+WHERE cidade = 'São Paulo'
+OR cidade = 'Campinas';
+
+SELECT *
+FROM produto
+WHERE valorproduto BETWEEN 10 AND 50;
+
 -- Deletar um dado da tabela (tente apagar sempre pela PK)
 DELETE FROM farmacia
 WHERE cnpj = '123456789000199';
@@ -95,6 +127,10 @@ WHERE cnpj = '123456789000199';
 UPDATE farmacia
 SET telefone = 1198765432
 WHERE cnpj = '123456789000199';
+
+-- Alterar telefone para bigint, assim ele aceita números com 9
+ALTER TABLE farmacia
+MODIFY telefone BIGINT NOT NULL;
  
 -- Inserindo vários dados ao mesmo tempo
 INSERT INTO farmacia(
@@ -160,8 +196,8 @@ VALUES(
  
 -- Inserindo dados na tabela de produtos
 INSERT INTO produto(
-    codproduto
-    quantproduto
+    codproduto,
+    quantproduto,
     cnpj_farmacia
 )
 VALUES(
