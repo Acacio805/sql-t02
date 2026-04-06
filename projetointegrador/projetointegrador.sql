@@ -10,7 +10,8 @@ CREATE TABLE formulario
  modelo_jogo BOOLEAN NOT NULL,  
  tipo_modelo VARCHAR(50) NOT NULL,  
  deadline DATE NOT NULL,
- descricao VARCHAR(500),  
+ descricao TEXT(500),
+ contato VARCHAR(200),  
  id_cliente INT,  
  id_artista INT,  
  id_comissao INT PRIMARY KEY AUTO_INCREMENT  

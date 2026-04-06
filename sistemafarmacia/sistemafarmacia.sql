@@ -119,6 +119,77 @@ SELECT *
 FROM produto
 WHERE valorproduto BETWEEN 10 AND 50;
 
+-- Busca por texto
+SELECT *
+FROM farmacia
+WHERE nomefarmacia LIKE 'Farmácia%';
+
+-- Busca por palavra específica
+SELECT *
+FROM farmacia
+WHERE nomefarmacia LIKE '%Vida';
+
+-- Ordem ascendente
+SELECT *
+FROM farmacia
+ORDER BY nomefarmacia ASC;
+
+-- Ordem descendente/decrescente
+SELECT *
+FROM farmacia
+ORDER BY cidade DESC;
+
+-- Limite de registros
+SELECT *
+FROM farmacia
+LIMIT 2;
+
+-- Mostrando o produto mais barato
+SELECT *
+FROM produto
+ORDER BY valorproduto ASC
+LIMIT 1;
+
+-- Where, order by, limit (combinados)
+SELECT *
+FROM farmacia
+WHERE cidade = 'São Paulo'
+ORDER BY nomefarmacia
+LIMIT 2;
+
+-- Join relacionando tabelas
+SELECT p.codproduto, p.valorproduto, fa.nomefarmacia
+FROM produto p 
+JOIN farmacia fa ON p.cnpj_farmacia = fa.cnpj;
+
+-- Inner Join - Farmacêutico e Farmácia
+SELECT
+    farmaceutico.nomefarmaceutico,
+    farmacia.nomefarmacia,
+    farmacia.cidade
+FROM farmaceutico
+INNER JOIN farmacia
+ON farmaceutico.cnpj_farmacia = farmacia.cnpj;
+
+-- Inner Join + Where
+SELECT
+    p.codproduto,
+    p.valorproduto
+FROM produto p 
+INNER JOIN farmacia f 
+ON p.cnpj_farmacia = f.cnpj 
+WHERE f.nomefarmacia = 'Farmácia Popular';
+
+-- Inner Join + Order By
+SELECT
+    p.codproduto,
+    p.valorproduto,
+    f.nomefarmacia
+FROM produto p
+INNER JOIN farmacia f
+ON p.cnpj_farmacia = f.cnpj
+ORDER BY p.valorproduto ASC;
+
 -- Deletar um dado da tabela (tente apagar sempre pela PK)
 DELETE FROM farmacia
 WHERE cnpj = '123456789000199';
@@ -205,3 +276,36 @@ VALUES(
     19.90,
     '11111111000111'
 );
+
+-- Criando novo usuário no banco de dados
+CREATE USER 'usuario_farmacia'@'localhost'
+IDENTIFIED BY 'senha123';
+
+-- Concedendo permissões - total
+GRANT ALL PRIVILEGES
+ON sistemadefarmacia.*
+TO 'usuario_farmacia'@'localhost';
+
+-- Concedendo permissão - apenas de leitura
+GRANT SELECT
+ON sistemadefarmacia.*
+TO 'usuario_farmacia'@'localhost';
+
+-- Concedendo permissões específicas
+GRANT SELECT, INSERT
+ON sistemadefarmacia.*
+TO 'usuario_farmacia'@'localhost';
+
+-- Revogando permissões de um usuário
+REVOKE INSERT
+ON sistemadefarmacia.*
+FROM 'usuario_farmacia'@'localhost';
+
+-- Revogando todas as permissões do usuário
+REVOKE ALL PRIVILEGES
+ON sistemadefarmacia.*
+FROM 'usuario_farmacia'@'localhost';
+
+-- Excluíndo usuário 
+DROP USER 'usuario_farmacia'@'localhost';
+
